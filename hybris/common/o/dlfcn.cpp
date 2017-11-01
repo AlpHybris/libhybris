@@ -42,6 +42,10 @@
 #include "private/bionic_tls.h"
 #include "private/ScopedPthreadMutexLocker.h"
 
+#ifndef PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP
+#define PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP {{PTHREAD_MUTEX_RECURSIVE}}
+#endif
+
 static pthread_mutex_t g_dl_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 
 static __thread char *dl_err_str;

@@ -57,11 +57,11 @@ typedef struct {
 } Dl_info;
 
 void* dlopen(const char* filename, int flag);
-int dlclose(void* handle) __nonnull((1));
+int dlclose(void* handle) __attribute__((nonnull((1))));
 char* dlerror(void);
-void* dlsym(void* handle, const char* symbol) __nonnull((2));
-void* dlvsym(void* handle, const char* symbol, const char* version) __nonnull((2, 3));
-int dladdr(const void* addr, Dl_info* info) __nonnull((2));
+void* dlsym(void* handle, const char* symbol) __attribute__((nonnull((2))));
+void* dlvsym(void* handle, const char* symbol, const char* version) __attribute__((nonnull((2, 3))));
+int dladdr(const void* addr, Dl_info* info) __attribute__((nonnull((2))));
 
 #define RTLD_LOCAL    0
 #define RTLD_LAZY     0x00001
