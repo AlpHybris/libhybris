@@ -2,6 +2,7 @@ lib_LTLIBRARIES = \
 	libhybris-platformcommon.la
 
 libhybris_platformcommon_la_SOURCES = \
+	native_handle.c \
 	nativewindowbase.cpp \
 	platformcommon.cpp \
 	windowbuffer.cpp

@@ -19,13 +19,11 @@
 #ifndef __LIBHYBRIS_TEST_COMMON_H
 #define __LIBHYBRIS_TEST_COMMON_H
 
-#include "config.h"
-
 #include <EGL/egl.h>
 
 #ifdef GL_ES_VERSION_3_0
 #include <GLES3/gl3.h>
-#include <GLES2/gl2ext.h>
+#include <GLES3/gl3ext.h>
 #else
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>

@@ -31,7 +31,6 @@ libhybris_common_la_SOURCES = \
 	strlcpy.c \
 	strlcat.c \
 	logging.c \
-	native_handle.c \
 	sysconf.c \
 	dso_handle_counters.cpp \
 	legacy_properties/properties.c \

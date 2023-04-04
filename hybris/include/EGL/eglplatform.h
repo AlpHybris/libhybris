@@ -27,6 +27,10 @@
  * KHRONOS_APICALL and KHRONOS_APIENTRY are defined in KHR/khrplatform.h
  */
 
+#ifndef LIBHYBRIS_WANTS_MESA_X11_HEADERS
+#define EGL_NO_X11
+#endif
+
 #ifndef EGLAPI
 #define EGLAPI KHRONOS_APICALL
 #endif
@@ -103,7 +107,13 @@ typedef intptr_t EGLNativeDisplayType;
 typedef intptr_t EGLNativePixmapType;
 typedef intptr_t EGLNativeWindowType;
 
-#elif defined(USE_X11)
+#elif defined(__unix__) && defined(EGL_NO_X11)
+
+typedef void             *EGLNativeDisplayType;
+typedef khronos_uintptr_t EGLNativePixmapType;
+typedef khronos_uintptr_t EGLNativeWindowType;
+
+#elif defined(__unix__) || defined(USE_X11)
 
 /* X11 (tentative)  */
 #include <X11/Xlib.h>
@@ -112,12 +122,6 @@ typedef intptr_t EGLNativeWindowType;
 typedef Display *EGLNativeDisplayType;
 typedef Pixmap   EGLNativePixmapType;
 typedef Window   EGLNativeWindowType;
-
-#elif defined(__unix__)
-
-typedef void             *EGLNativeDisplayType;
-typedef khronos_uintptr_t EGLNativePixmapType;
-typedef khronos_uintptr_t EGLNativeWindowType;
 
 #elif defined(__APPLE__)
 

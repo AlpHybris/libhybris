@@ -109,7 +109,6 @@ test_glesv2_LDADD = \
 	-lm \
 	$(top_builddir)/common/libhybris-common.la \
 	$(top_builddir)/egl/platforms/hwcomposer/libhybris-hwcomposerwindow.la \
-	$(top_builddir)/platforms/common/libhybris-platformcommon.la \
 	$(top_builddir)/egl/platforms/common/libhybris-eglplatformcommon.la \
 	$(libegl) \
 	$(libglesv2) \
@@ -143,7 +142,6 @@ test_glesv3_LDADD = \
 	-lm \
 	$(top_builddir)/common/libhybris-common.la \
 	$(top_builddir)/egl/platforms/hwcomposer/libhybris-hwcomposerwindow.la \
-	$(top_builddir)/platforms/common/libhybris-platformcommon.la \
 	$(top_builddir)/egl/platforms/common/libhybris-eglplatformcommon.la \
 	$(libegl) \
 	$(libglesv2) \
@@ -176,7 +174,6 @@ endif
 test_hwcomposer_LDADD = \
 	-lm \
 	$(top_builddir)/common/libhybris-common.la \
-	$(top_builddir)/platforms/common/libhybris-platformcommon.la \
 	$(top_builddir)/egl/platforms/common/libhybris-eglplatformcommon.la \
 	$(libegl) \
 	$(libglesv2) \
