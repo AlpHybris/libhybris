@@ -349,18 +349,6 @@ static void _my_glEGLImageTargetTexture2DOES(GLenum target, GLeglImageOES image)
 	(*_glEGLImageTargetTexture2DOES)(target, img ? img->egl_image : NULL);
 }
 
-EGLBoolean _my_eglDestroyImageKHR(EGLDisplay dpy, EGLImageKHR image)
-{
-	HYBRIS_DLSYSM(egl, &_eglDestroyImageKHR, "eglDestroyImageKHR");
-	struct egl_image *img = image;
-	EGLBoolean ret = (*_eglDestroyImageKHR)(dpy, img ? img->egl_image : NULL);
-	if (ret == EGL_TRUE) {
-		free(img);
-		return EGL_TRUE;
-	}
-	return ret;
-}
-
 __eglMustCastToProperFunctionPointerType eglGetProcAddress(const char *procname)
 {
 	HYBRIS_DLSYSM(egl, &_eglGetProcAddress, "eglGetProcAddress");
@@ -370,7 +358,7 @@ __eglMustCastToProperFunctionPointerType eglGetProcAddress(const char *procname)
 	}
 	else if (strcmp(procname, "eglDestroyImageKHR") == 0)
 	{
-		return (__eglMustCastToProperFunctionPointerType) _my_eglDestroyImageKHR;
+		return (__eglMustCastToProperFunctionPointerType) eglDestroyImageKHR;
 	}
 	else if (strcmp(procname, "eglSwapBuffersWithDamageEXT") == 0)
 	{
@@ -410,6 +398,18 @@ __eglMustCastToProperFunctionPointerType eglGetProcAddress(const char *procname)
 		ret = (*_eglGetProcAddress)(procname);
 	}
 
+	return ret;
+}
+
+EGLBoolean eglDestroyImageKHR(EGLDisplay dpy, EGLImageKHR image)
+{
+	HYBRIS_DLSYSM(egl, &_eglDestroyImageKHR, "eglDestroyImageKHR");
+	struct egl_image *img = image;
+	EGLBoolean ret = (*_eglDestroyImageKHR)(dpy, img ? img->egl_image : NULL);
+	if (ret == EGL_TRUE) {
+		free(img);
+		return EGL_TRUE;
+	}
 	return ret;
 }
 
