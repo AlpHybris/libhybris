@@ -96,7 +96,7 @@ static int locale_inited = 0;
 static hybris_hook_cb hook_callback = NULL;
 
 #ifdef WANT_ARM_TRACING
-static void (*_android_linker_init)(int sdk_version, void* (*get_hooked_symbol)(const char*, const char*), int enable_linker_gdb_support, void *(_create_wrapper)(const char*, void*, int), int wrapping_enabled) = NULL;
+static void (*_android_linker_init)(int sdk_version, void* (*get_hooked_symbol)(const char*, const char*), int enable_linker_gdb_support, void *(_create_wrapper)(const char*, void*, int)) = NULL;
 #else
 static void (*_android_linker_init)(int sdk_version, void* (*get_hooked_symbol)(const char*, const char*), int enable_linker_gdb_support) = NULL;
 #endif
@@ -3248,17 +3248,10 @@ static int get_android_sdk_version()
     (sizeof(hooks) / sizeof(hooks[0]))
 
 
-int strendswith(const char *str, const char *suffix, int lensuf)
-{
-    unsigned int lenstr = strlen(str);
-    return strcmp(str + lenstr - lensuf, suffix) == 0;
-}
-
 static void* __hybris_get_hooked_symbol(const char *sym, const char *requester)
 {
     static int sorted = 0;
     static intptr_t counter = -1;
-    static int do_print_unhooked = -1;
     void *found = NULL;
     struct _hook key;
     int sdk_version = -1;
@@ -3273,7 +3266,7 @@ static void* __hybris_get_hooked_symbol(const char *sym, const char *requester)
     }
 
 #ifdef WANT_ADRENO_QUIRKS
-    if (strendswith(requester, "libllvm-glnext.so", 17) && strcmp(sym, "malloc") == 0) {
+    if (strstr(requester, "libllvm-glnext.so") != NULL && strcmp(sym, "malloc") == 0) {
         return _hybris_hook_malloc45;
     }
 #endif
@@ -3326,13 +3319,8 @@ static void* __hybris_get_hooked_symbol(const char *sym, const char *requester)
         return (void *) counter;
     }
 
-    if (do_print_unhooked == -1) {
-        do_print_unhooked = !getenv("HYBRIS_DONT_PRINT_SYMBOLS_WITHOUT_HOOK");
-    }
-
-    if (do_print_unhooked) {
+    if (!getenv("HYBRIS_DONT_PRINT_SYMBOLS_WITHOUT_HOOK"))
         LOGD("Could not find a hook for symbol %s", sym);
-    }
 
     return NULL;
 }
@@ -3434,7 +3422,7 @@ static void __hybris_linker_init()
 #endif
     /* Now its time to setup the linker itself */
 #ifdef WANT_ARM_TRACING
-    _android_linker_init(sdk_version, __hybris_get_hooked_symbol, enable_linker_gdb_support, create_wrapper, wrappers_enabled());
+    _android_linker_init(sdk_version, __hybris_get_hooked_symbol, enable_linker_gdb_support, create_wrapper);
 #else
     _android_linker_init(sdk_version, __hybris_get_hooked_symbol, enable_linker_gdb_support);
 #endif
