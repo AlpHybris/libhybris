@@ -1,6 +1,7 @@
 /****************************************************************************************
  **
- ** Copyright (C) 2013-2022 Jolla Ltd.
+ ** Copyright (C) 2013 Jolla Ltd.
+ ** Contact: Carsten Munk <carsten.munk@jollamobile.com>
  ** All rights reserved.
  **
  ** This file is part of Wayland enablement for libhybris
@@ -46,12 +47,12 @@ extern "C" {
 extern "C" {
 #include <wayland-client.h>
 #include <wayland-egl.h>
-#include <wayland-egl-backend.h>
 }
 
 #include <hybris/gralloc/gralloc.h>
 #include "wayland_window.h"
 #include "logging.h"
+#include "wayland-egl-priv.h"
 #include "server_wlegl_buffer.h"
 #include "wayland-android-client-protocol.h"
 

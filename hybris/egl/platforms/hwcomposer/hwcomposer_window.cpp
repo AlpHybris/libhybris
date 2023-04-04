@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2022 libhybris
+ * Copyright (C) 2013 libhybris
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@
 
 #include <errno.h>
 #include <assert.h>
-#include <inttypes.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -432,11 +431,11 @@ unsigned int HWComposerNativeWindow::getUsage() const
  *  Calling this function will usually cause following buffers to be
  *  reallocated.
  */
-int HWComposerNativeWindow::setUsage(uint64_t usage)
+int HWComposerNativeWindow::setUsage(int usage)
 {
     usage |= GRALLOC_USAGE_HW_COMPOSER|GRALLOC_USAGE_HW_FB;
     int need_realloc = (m_usage != (unsigned int) usage);
-    TRACE("usage=x%" PRIx64 " realloc=%d", usage, need_realloc);
+    TRACE("usage=x%x realloc=%d", usage, need_realloc);
     m_usage = usage;
     if (need_realloc)
         destroyBuffers();

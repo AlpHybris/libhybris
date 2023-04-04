@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2022 libhybris
+ * Copyright (C) 2013 libhybris
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 #ifndef FBDEV_WINDOW_H
 #define FBDEV_WINDOW_H
 
-#include "eglnativewindowbase.h"
+#include "nativewindowbase.h"
 #include <linux/fb.h>
 #include <hardware/gralloc.h>
 
@@ -40,7 +40,7 @@ protected:
 };
 
 
-class FbDevNativeWindow : public EGLBaseNativeWindow {
+class FbDevNativeWindow : public BaseNativeWindow {
 public:
     FbDevNativeWindow();
     ~FbDevNativeWindow();
@@ -64,7 +64,7 @@ protected:
     virtual unsigned int transformHint() const;
     virtual unsigned int getUsage() const;
     // perform calls
-    virtual int setUsage(uint64_t usage);
+    virtual int setUsage(int usage);
     virtual int setBuffersFormat(int format);
     virtual int setBuffersDimensions(int width, int height);
     virtual int setBufferCount(int cnt);
@@ -74,7 +74,7 @@ private:
     void reallocateBuffers();
 
 private:
-    uint64_t m_usage;
+    int m_usage;
     int m_bufFormat;
     int m_bufferCount;
     int m_freeBufs;
