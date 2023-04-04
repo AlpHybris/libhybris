@@ -17,7 +17,7 @@
  *
  */
 
-#include <android-config.h>
+#include "test_common.h"
 
 #include <stdio.h>
 #include <stdlib.h>
