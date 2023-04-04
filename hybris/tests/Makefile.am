@@ -32,16 +32,6 @@ test_dlopen_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
 	$(top_builddir)/hardware/libhardware.la
 
-# When enabling glvnd support, we no longer build linkable libEGL,
-# thus, we link with the system version.
-if WANT_GLVND
-libegl = $(EGL_LIBS)
-libglesv2 = $(GLESV2_LIBS)
-else
-libegl = $(top_builddir)/egl/libEGL.la
-libglesv2 = $(top_builddir)/glesv2/libGLESv2.la
-endif
-
 test_audio_SOURCES = test_audio.c
 test_audio_CFLAGS = -std=c99\
 	-I$(top_srcdir)/include \
@@ -79,7 +69,7 @@ test_egl_CFLAGS += -DLIBHYBRIS_WANTS_MESA_X11_HEADERS
 endif
 test_egl_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
-	$(libegl)
+	$(top_builddir)/egl/libEGL.la
 
 test_egl_configs_SOURCES = test_egl_configs.c
 test_egl_configs_CFLAGS = \
@@ -87,7 +77,7 @@ test_egl_configs_CFLAGS = \
 	$(ANDROID_HEADERS_CFLAGS)
 test_egl_configs_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
-	$(libegl)
+	$(top_builddir)/egl/libEGL.la
 
 test_glesv2_SOURCES = test_glesv2.cpp test_common.cpp
 test_glesv2_CXXFLAGS = \
@@ -107,8 +97,8 @@ test_glesv2_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
 	$(top_builddir)/egl/platforms/hwcomposer/libhybris-hwcomposerwindow.la \
 	$(top_builddir)/egl/platforms/common/libhybris-eglplatformcommon.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/hardware/libhardware.la \
 	$(top_builddir)/libsync/libsync.la
 if HAS_HWCOMPOSER2_HEADERS
@@ -139,8 +129,8 @@ test_glesv3_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
 	$(top_builddir)/egl/platforms/hwcomposer/libhybris-hwcomposerwindow.la \
 	$(top_builddir)/egl/platforms/common/libhybris-eglplatformcommon.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/hardware/libhardware.la \
 	$(top_builddir)/libsync/libsync.la
 if HAS_HWCOMPOSER2_HEADERS
@@ -170,8 +160,8 @@ test_hwcomposer_LDADD = \
 	-lm \
 	$(top_builddir)/common/libhybris-common.la \
 	$(top_builddir)/egl/platforms/common/libhybris-eglplatformcommon.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/hardware/libhardware.la
 
 if HAS_HWCOMPOSER2_HEADERS
@@ -228,8 +218,8 @@ test_sf_CXXFLAGS = \
 	$(ANDROID_HEADERS_CFLAGS)
 test_sf_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/sf/libsf.la
 
 test_input_SOURCES = test_input.c
@@ -259,8 +249,8 @@ endif
 if WANT_WAYLAND_EGL
 test_camera_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/camera/libcamera.la \
 	$(top_builddir)/input/libis.la \
 	$(top_builddir)/egl/platforms/common/libwayland-egl.la \
@@ -268,8 +258,8 @@ test_camera_LDADD = \
 else
 test_camera_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/camera/libcamera.la \
 	$(top_builddir)/input/libis.la \
 	$(WAYLAND_EGL_LIBS)
@@ -290,8 +280,8 @@ test_media_CXXFLAGS += \
 endif
 test_media_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/media/libmedia.la \
 	$(top_builddir)/sf/libsf.la
 
@@ -309,8 +299,8 @@ test_recorder_CXXFLAGS += \
 endif
 test_recorder_LDADD = \
 	$(top_builddir)/common/libhybris-common.la \
-	$(libegl) \
-	$(libglesv2) \
+	$(top_builddir)/egl/libEGL.la \
+	$(top_builddir)/glesv2/libGLESv2.la \
 	$(top_builddir)/media/libmedia.la \
 	$(top_builddir)/camera/libcamera.la \
 	$(top_builddir)/input/libis.la \
