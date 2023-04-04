@@ -71,15 +71,14 @@ server_wlegl_buffer_create(wl_client *client,
 	buffer->resource = wl_resource_create(client, &wl_buffer_interface, 1, id);
 	wl_resource_set_implementation(buffer->resource, &server_wlegl_buffer_impl, buffer, server_wlegl_buffer_dtor);
 
-	const native_handle_t* out_handle = NULL;
-	ret = hybris_gralloc_import_buffer(handle, &out_handle);
+	ret = hybris_gralloc_retain(handle);
 	if (ret) {
 		delete buffer;
 		return NULL;
 	}
 
 	buffer->buf = new RemoteWindowBuffer(
-	        width, height, stride, format, usage, out_handle);
+	        width, height, stride, format, usage, handle);
 	buffer->buf->common.incRef(&buffer->buf->common);
 	return buffer;
 }
