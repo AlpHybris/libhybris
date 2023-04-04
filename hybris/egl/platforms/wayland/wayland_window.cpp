@@ -26,7 +26,6 @@
 
 
 #include <android-config.h>
-#include <hardware/gralloc.h>
 #include "wayland_window.h"
 #include "wayland-egl-priv.h"
 #include <assert.h>

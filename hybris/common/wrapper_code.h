@@ -22,10 +22,7 @@
 extern "C" {
 #endif
 
-void wrapper_code_generic() __attribute__((naked,noinline)) __attribute__((target("arm")));
-#ifdef __arm__
-void wrapper_code_generic_thumb() __attribute__((naked,noinline)) __attribute__((target("thumb")));
-#endif
+void wrapper_code_generic() __attribute__((naked,noinline));
 
 #ifdef __cplusplus
 }
