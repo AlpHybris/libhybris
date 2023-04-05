@@ -3029,10 +3029,6 @@ static struct _hook hooks_common[] = {
     HOOK_DIRECT_NO_DEBUG(access),
     /* grp.h */
     HOOK_DIRECT_NO_DEBUG(getgrgid),
-    /* C++ ABI */
-    HOOK_DIRECT_NO_DEBUG(__cxa_atexit),
-    HOOK_DIRECT_NO_DEBUG(__cxa_finalize),
-    HOOK_INDIRECT(__cxa_thread_atexit),
     /* sys/prctl.h */
     HOOK_INDIRECT(prctl),
     /* stdio_ext.h */
