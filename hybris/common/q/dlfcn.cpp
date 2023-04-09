@@ -42,6 +42,12 @@
 #include "private/bionic_tls.h"
 #include "private/ScopedPthreadMutexLocker.h"
 
+#include "hybris_compat.h"
+
+#ifndef PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP
+#define PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP {{PTHREAD_MUTEX_RECURSIVE}}
+#endif
+
 #define __LINKER_PUBLIC__ __attribute__((visibility("default")))
 
 extern "C" {

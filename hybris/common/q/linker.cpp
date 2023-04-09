@@ -38,6 +38,9 @@
 #include <sys/param.h>
 #include <sys/vfs.h>
 #include <unistd.h>
+#ifndef __GLIBC__
+#include <libgen.h>
+#endif
 
 #include <new>
 #include <string>

@@ -33,6 +33,10 @@
 #include <string.h>
 #include <memory.h>
 
+#ifndef __GLIBC__
+#include <hybris/common/musl_compat.h>
+#endif
+
 extern "C" size_t strlcpy(char *dest, const char *src, size_t size);
 extern "C" size_t strlcat(char *dst, const char *src, size_t size);
 
@@ -85,5 +89,24 @@ extern "C" size_t strlcat(char *dst, const char *src, size_t size);
 #define R_AARCH64_TLS_DTPREL64          1028    /* Module-relative offset. */
 #define R_AARCH64_TLS_DTPMOD64          1029    /* Module index. */
 #define R_AARCH64_TLS_TPREL64           1030    /* TP-relative offset. */
+
+#if defined (__aarch64__)
+
+#ifndef R_AARCH64_TLS_DTPREL32
+#define R_AARCH64_TLS_DTPREL32 1031
+#endif
+
+#ifndef R_AARCH64_IRELATIVE
+#define R_AARCH64_IRELATIVE 1032
+#endif
+
+#endif
+
+#ifndef __GLIBC__
+#ifndef basename
+const char *gnu_basename(const char *path);
+#define basename gnu_basename
+#endif
+#endif
 
 #endif
